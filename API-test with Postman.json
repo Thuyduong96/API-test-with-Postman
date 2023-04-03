@@ -1,0 +1,1779 @@
+{
+	"info": {
+		"_postman_id": "96fbfc3f-3e86-45db-97fc-42a93cee7b99",
+		"name": "lab 11",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23934751"
+	},
+	"item": [
+		{
+			"name": "Tạo Board",
+			"item": [
+				{
+					"name": "R1-creatboard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check TC tạo board thành công\r",
+									"pm.test(\"Tạo Board thành công, expect 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//Lấy board ID trả về từ response\r",
+									"const boardID = pm.response.json().id;\r",
+									"//Dynamic setting variable\r",
+									"//Set boardID là biến môi trường để sử dụng API tạo list.\r",
+									"pm.environment.set(\"IDboard\", boardID);\r",
+									"postman.setNextRequest(\"R2-Creatlist\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/boards/?name={{boardName}}&Boolean:=true&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{boardName}}"
+								},
+								{
+									"key": "Boolean:",
+									"value": "true"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo bảng thất bại vì để trống key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo bảng thất bại vì để trống key\r",
+									"pm.test(\"Tạo bảng thất bại vì để trống key, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}1/boards?name={{boardName}}&Boolean=true&key={{key}}",
+							"host": [
+								"{{base_url}}1"
+							],
+							"path": [
+								"boards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{boardName}}"
+								},
+								{
+									"key": "Boolean",
+									"value": "true"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo bảng thất bại vì để trống Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo bảng thất bại vì để trống Token\r",
+									"pm.test(\"Tạo bảng thất bại vì để trống Token, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/boards?name={{boardName}}&Boolean=true&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{boardName}}"
+								},
+								{
+									"key": "Boolean",
+									"value": "true"
+								},
+								{
+									"key": "key",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo bảng thất bại vì điền sai Key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo bảng thất bại vì điền sai Key\r",
+									"pm.test(\"Tạo bảng thất bại vì điền sai Key, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/boards?name={{boardName}}&Boolean=true&key=acfv&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{boardName}}"
+								},
+								{
+									"key": "Boolean",
+									"value": "true"
+								},
+								{
+									"key": "key",
+									"value": "acfv"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo bảng thất bại vì điền sai token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo bảng thất bại vì điền sai Key\r",
+									"pm.test(\"Tạo bảng thất bại vì điền sai token, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/boards?name={{boardName}}&Boolean=true&key={{key}}&token=sfhj",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{boardName}}"
+								},
+								{
+									"key": "Boolean",
+									"value": "true"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "sfhj"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo bảng thất bại vì không điền Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo bảng thất bại vì không điền Name\r",
+									"pm.test(\"Tạo bảng thất bại vì không điền Name, expect 400 Badrequest.\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/boards?name=&Boolean=true&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								},
+								{
+									"key": "Boolean",
+									"value": "true"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tạo List",
+			"item": [
+				{
+					"name": "R2-Creatlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Tạo list thành công, expect 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//Lấy List ID trả về từ response\r",
+									"const id_todo = pm.response.json().id;\r",
+									"//Dynamic setting variable\r",
+									"//Set ListID là biến môi trường để sử dụng API tạo Card.\r",
+									"pm.environment.set(\"id_todo\", id_todo);\r",
+									"postman.setNextRequest(\"R2-Creatlist-done\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/lists?name={{ListName1}}&idBoard={{IDboard}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{ListName1}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "R2-Creatlist-done",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Tạo list thành công, expect 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//Lấy List ID trả về từ response\r",
+									"const id_done = pm.response.json().id;\r",
+									"//Dynamic setting variable\r",
+									"//Set ListID là biến môi trường để sử dụng API tạo Card.\r",
+									"pm.environment.set(\"id_done\", id_done);\r",
+									"postman.setNextRequest(\"R3-creatcard\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/lists?name={{ListName2}}&idBoard={{IDboard}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{ListName2}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo List thất bại vì để trống key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo List thất bại vì để trống key\r",
+									"pm.test(\"Tạo List thất bại vì để trống key, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/lists?name={{ListName1}}&idBoard={{IDboard}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{ListName1}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}",
+									"disabled": true
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo List thất bại vì để trống Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo List thất bại vì để trống token\r",
+									"pm.test(\"Tạo List thất bại vì để trống token, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/lists?name={{ListName1}}&idBoard={{IDboard}}&key={{key}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{ListName1}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo List thất bại vì để điền sai Key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo List thất bại vì để điền sai Key\r",
+									"pm.test(\"Tạo List thất bại vì để điền sai Key, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/lists?name={{ListName1}}&idBoard={{IDboard}}&key=567&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{ListName1}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "567"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo List thất bại vì để điền sai token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo List thất bại vì để điền sai token\r",
+									"pm.test(\"Tạo List thất bại vì để điền sai token, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/lists?name={{ListName1}}&idBoard={{IDboard}}&key={{key}}&token=467",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{ListName1}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "467"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo List thất bại vì không nhập Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo List thất bại vì không nhập Name\r",
+									"pm.test(\"Tạo List thất bại vì không nhập Name, expect 400 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/lists?idBoard={{IDboard}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{ListName1}}",
+									"disabled": true
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo List thất bại vì không nhập idBoard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo List thất bại vì không nhập idBoard\r",
+									"pm.test(\"Tạo List thất bại vì không nhập idBoard, expect 400 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/lists?name={{ListName1}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{ListName1}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}",
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo List thất bại vì nhập  sai idBoard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo List thất bại vì nhập  sai idBoard\r",
+									"pm.test(\"Tạo List thất bại vì nhập  sai idBoard, expect 400 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/lists?name={{ListName1}}&idBoard=457&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{ListName1}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "457"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tạo card",
+			"item": [
+				{
+					"name": "R3-creatcard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Tạo Card thành công, expect 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//Lấy card ID trả về từ response\r",
+									"const cardID = pm.response.json().id;\r",
+									"//Dynamic setting variable\r",
+									"//Set cardID là biến môi trường để sử dụng API tạo list.\r",
+									"pm.environment.set(\"IDcard\", cardID);\r",
+									"postman.setNextRequest(\"R4-updatecard\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"CardName1A\", \"API tạo user\");\r",
+									"pm.environment.set(\"CardName1B\", \"API lấy thông tin user\");\r",
+									"pm.environment.set(\"CardName2A\", \"API đăng nhập tài khoản\");\r",
+									"pm.environment.set(\"CardName2B\", \"API đăng xuất tài khoản\");\r",
+									"pm.environment.set(\"CardName3\", \"API đăng kí tài khoản\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/cards?name={{CardName1A}}&idList={{id_done}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{CardName1A}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{id_done}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo Card thất bại vì để trống key",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"CardName1A\", \"API tạo user\");\r",
+									"pm.environment.set(\"CardName1B\", \"API lấy thông tin user\");\r",
+									"pm.environment.set(\"CardName2A\", \"API đăng nhập tài khoản\");\r",
+									"pm.environment.set(\"CardName2B\", \"API đăng xuất tài khoản\");\r",
+									"pm.environment.set(\"CardName3\", \"API đăng kí tài khoản\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo Card thất bại vì để trống key\r",
+									"pm.test(\"Tạo Card thất bại vì để trống key, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/cards?token={{token}}&name={{CardName3}}&idList={{IDlist3}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}",
+									"disabled": true
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "{{CardName3}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{IDlist3}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo Card thất bại vì để trống token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"CardName1A\", \"API tạo user\");\r",
+									"pm.environment.set(\"CardName1B\", \"API lấy thông tin user\");\r",
+									"pm.environment.set(\"CardName2A\", \"API đăng nhập tài khoản\");\r",
+									"pm.environment.set(\"CardName2B\", \"API đăng xuất tài khoản\");\r",
+									"pm.environment.set(\"CardName3\", \"API đăng kí tài khoản\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo Card thất bại vì để trống token\r",
+									"pm.test(\"Tạo Card thất bại vì để trống token, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/cards?key={{key}}&name={{CardName3}}&idList={{IDlist3}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "{{CardName3}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{IDlist3}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo Card thất bại vì điền sai key",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"CardName1A\", \"API tạo user\");\r",
+									"pm.environment.set(\"CardName1B\", \"API lấy thông tin user\");\r",
+									"pm.environment.set(\"CardName2A\", \"API đăng nhập tài khoản\");\r",
+									"pm.environment.set(\"CardName2B\", \"API đăng xuất tài khoản\");\r",
+									"pm.environment.set(\"CardName3\", \"API đăng kí tài khoản\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo Card thất bại vì điền sai key\r",
+									"pm.test(\"Tạo Card thất bại vì điền sai key, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/cards?key=124&token={{token}}&name={{CardName3}}&idList={{IDlist3}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "124"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "{{CardName3}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{IDlist3}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo Card thất bại vì điền sai Token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo Card thất bại vì điền sai Token\r",
+									"pm.test(\"Tạo Card thất bại vì điền sai token, expect 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/cards?key={{key}}&token=567&name={{CardName3}}&idList={{IDlist3}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "567"
+								},
+								{
+									"key": "name",
+									"value": "{{CardName3}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{IDlist3}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo Card thất bại vì không nhập IDlist",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"CardName1A\", \"API tạo user\");\r",
+									"pm.environment.set(\"CardName1B\", \"API lấy thông tin user\");\r",
+									"pm.environment.set(\"CardName2A\", \"API đăng nhập tài khoản\");\r",
+									"pm.environment.set(\"CardName2B\", \"API đăng xuất tài khoản\");\r",
+									"pm.environment.set(\"CardName3\", \"API đăng kí tài khoản\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo Card thất bại vì không nhập IDlist\r",
+									"pm.test(\"Tạo Card thất bại vì không nhập IDlist, expect 400 Bad request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/cards?name={{CardName1A}}&name={{CardName1B}}&key={{key}}&token={{token}}&desc=optional",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{CardName1A}}"
+								},
+								{
+									"key": "name",
+									"value": "{{CardName1B}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{IDlist1}}",
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "desc",
+									"value": "optional"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo Card thất bại vì nhập sai IDlist",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"CardName1A\", \"API tạo user\");\r",
+									"pm.environment.set(\"CardName1B\", \"API lấy thông tin user\");\r",
+									"pm.environment.set(\"CardName2A\", \"API đăng nhập tài khoản\");\r",
+									"pm.environment.set(\"CardName2B\", \"API đăng xuất tài khoản\");\r",
+									"pm.environment.set(\"CardName3\", \"API đăng kí tài khoản\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Tạo Card thất bại vì nhập sai IDlist\r",
+									"pm.test(\"Tạo Card thất bại vì nhập sai IDlist, expect 400 Bad request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/cards?name={{CardName1A}}&name={{CardName1B}}&idList=4778&key={{key}}&token={{token}}&desc=optional",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{CardName1A}}"
+								},
+								{
+									"key": "name",
+									"value": "{{CardName1B}}"
+								},
+								{
+									"key": "idList",
+									"value": "4778"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "desc",
+									"value": "optional"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update Card",
+			"item": [
+				{
+					"name": "R4-updatecard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"API sửa chữa card thành công\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//kiểm tra số bảng đã tạo đến tình hình hiện tại\r",
+									"var num2 = pm.environment.get(\"numboard\");\r",
+									"if (num2 == null){\r",
+									"        //Đây là board đầu tiên\r",
+									"    postman.setNextRequest(\"R1-creatboard\")\r",
+									"    pm.environment.set(\"numboard\", 1);}\r",
+									"else{\r",
+									"    pm.environment.set(\"numboard\", 2);\r",
+									"    postman.setNextRequest(\"R5-getlistboard\")\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/card/{{IDcard}}?Name={{CardName1A}}&closed=false&idList={{id_todo}}&idBoard={{IDboard}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"card",
+								"{{IDcard}}"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "{{CardName1A}}"
+								},
+								{
+									"key": "closed",
+									"value": "false"
+								},
+								{
+									"key": "idList",
+									"value": "{{id_todo}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update card thất bại, không tìm thấy card ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Update thất abij do không tìm thấy card ID\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/card/566?Name=API sửa chữa&closed=true&idList={{IDlist1}}&idBoard={{IDboard}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"card",
+								"566"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "API sửa chữa"
+								},
+								{
+									"key": "closed",
+									"value": "true"
+								},
+								{
+									"key": "idList",
+									"value": "{{IDlist1}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API sửa chữa card thất bại, name trống",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"API sửa chữa card thất bại, name trống\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/card/{{IDcard}}?Name=&closed=true&idList={{IDlist1}}&idBoard={{IDboard}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"card",
+								"{{IDcard}}"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": ""
+								},
+								{
+									"key": "closed",
+									"value": "true"
+								},
+								{
+									"key": "idList",
+									"value": "{{IDlist1}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API sửa chữa card thất bại, idList không tìm thấy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"API sửa chữa card thất bại, idList không tìm thấy\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/card/{{IDcard}}?Name=API sửa chữa&closed=true&idList=333&idBoard={{IDboard}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"card",
+								"{{IDcard}}"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "API sửa chữa"
+								},
+								{
+									"key": "closed",
+									"value": "true"
+								},
+								{
+									"key": "idList",
+									"value": "333"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{IDboard}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API sửa chữa card thất bại, idBoard không tìm thấy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"API sửa chữa card thất bại, idBoard không tìm thấy\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/card/{{IDcard}}?Name=API sửa chữa&closed=true&idList={{IDlist1}}&idBoard=456&key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"card",
+								"{{IDcard}}"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "API sửa chữa"
+								},
+								{
+									"key": "closed",
+									"value": "true"
+								},
+								{
+									"key": "idList",
+									"value": "{{IDlist1}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "456"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lấy danh sách",
+			"item": [
+				{
+					"name": "R5-getlistboard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Lấy ra danh sách tất cả các board thuộc về người dùng thành công.\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"if (jsonData.length==0){\r",
+									"    pm.environment.set(\"numboard\", null);\r",
+									"    postman.setNextRequest(null);\r",
+									"} else {pm.environment.set(\"IDboard\", jsonData[0].id);\r",
+									"    postman.setNextRequest(\"R6-deleteboard\");}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/members/{{id}}/boards?key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"members",
+								"{{id}}",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy ra danh sách tất cả các board thuộc về người dùng thất bại, id không tồn tại.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Lấy ra danh sách tất cả các board thuộc về người dùng thất bại, id không tồn tại.\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/members/takayori/boards",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"members",
+								"takayori",
+								"boards"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Xóa board",
+			"item": [
+				{
+					"name": "R6-deleteboard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Xóa bảng thành công\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"postman.setNextRequest(\"R5-getlistboard\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/boards/{{IDboard}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{IDboard}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Xóa board thất bại, id sai",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"id board không đúng, xóa bảng thất bại\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/boards/23?key={{key}}&token={{token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								"23"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Xóa bảng thất bại không điền key và token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Xóa bảng thành công\", function () {\r",
+									"    pm.response.to.not.have.status(\"200\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/1/boards/{{IDboard}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{IDboard}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}",
+									"disabled": true
+								},
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
